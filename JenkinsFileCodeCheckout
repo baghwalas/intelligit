@@ -1,0 +1,16 @@
+pipeline {
+    agent { label 'linux1' }
+    stages {
+        stage('Label Test') {
+            steps {
+                  echo "node_name: ${env.node_name}"
+            }
+        }
+        stage('Checkout Repository') {
+        steps {
+            git branch: 'master',
+                url: 'https://github.com/baghwalas/hello-world.git'
+
+            sh "ls -lat"
+        }
+    }
