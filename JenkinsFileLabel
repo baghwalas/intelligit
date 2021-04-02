@@ -1,0 +1,12 @@
+pipeline {
+    agent { label 'linux1' }
+    stages {
+        stage('Build') {
+            steps {
+                  echo "node_name: ${env.node_name}"
+            }
+        }
+
+        
+    }
+}
