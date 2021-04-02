@@ -9,8 +9,13 @@ pipeline {
         stage('Checkout Repository') {
         steps {
             git branch: 'master',
-                url: 'https://github.com/baghwalas/hello-world.git'
+            credentialsId: 'GitID',
+            url: 'https://github.com/baghwalas/hello-world.git'
 
             sh "ls -lat"
         }
     }
+
+        
+    }
+}
