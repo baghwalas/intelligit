@@ -1,0 +1,31 @@
+pipeline {
+    agent { label 'linux1' }
+    tools {maven 'Maven'}
+    stages {
+        stage('Label Test') {
+            steps {
+                  echo "node_name: ${env.node_name}"
+            }
+        }
+        stage('Checkout Repository') {
+           steps {
+               git branch: 'master',
+               credentialsId: 'GitID',
+               url: 'https://github.com/baghwalas/hello-world.git'
+               sh "ls -lat"
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+
+    }
+     post {
+        always {
+            junit '**/target/surefire-reports/*.xml'
+        }
+    }
+
+}
