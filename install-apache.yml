@@ -1,0 +1,29 @@
+---
+- name: This sets up an httpd webserver
+  hosts: webservers
+  become: yes
+  tasks:
+  - name: Install apache packages
+    yum:
+      name: httpd
+      state: present
+  - name: Install java packages
+    yum:
+      name: "{{java_version}}"
+      state: present
+  - name: ensure httpd is running
+    service:
+      name: httpd
+      state: started
+    notify:
+    - Restart apache
+  - name: copy the index file
+    copy:
+      src: /home/admin/index.html
+      dest: /var/www/html
+    notify:
+    - create dir
+
+  handlers:
+  - name: Restart apache
+    service:
