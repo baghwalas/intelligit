@@ -1,0 +1,37 @@
+---
+  # Play 1 - WebServer related tasks
+  - name: Play Web - Create apache directories and username in web servers
+    hosts: webservers
+    become: yes
+    become_user: root
+    vars:
+       package_name: httpd
+       user_name: apacheadm
+    tasks:
+      - name: create username apacheadm
+        user:
+          name: "{{user_name}}"
+          shell: /bin/bash
+
+      - name: install httpd
+        yum:
+          name: "{{package_name}}"
+          state: installed
+
+  # Play2 - DB Server related tasks
+  - name: Play app - Create tomcat directories and username in app servers
+    hosts: dbservers
+    become: yes
+    become_user: root
+    vars:
+       package_name: mysql
+       user_name: mysql
+    tasks:
+      - name: Create a username for mysql
+        user:
+          name: "{{user_name}}"
+          shell: /bin/bash
+      - name: install mysql
+        yum:
+          name: "{{package_name}}"
+          state: installed
