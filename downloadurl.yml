@@ -1,7 +1,13 @@
 ---
 - name: Download Tomcat8 from tomcat.apache.org
   hosts: appserver
+  become: yes
+  become_user: root
   tasks:
+  - name: create username tomcat
+    user:
+      name: tomcat
+      shell: /bin/bash
    - name: Create a Directory /opt/tomcat8
      become: yes
      file:
@@ -9,7 +15,7 @@
        state: directory
        mode: 0755
        owner: tomcat
-       group: tomcat
+       
 
    - name: Download Tomcat using get_url
      become: yes
