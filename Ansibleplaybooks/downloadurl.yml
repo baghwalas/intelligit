@@ -1,0 +1,28 @@
+---
+- name: Download Tomcat8 from tomcat.apache.org
+  hosts: appserver
+  become: yes
+  become_user: root
+  tasks:
+   - name: create username tomcat
+     user:
+       name: tomcat
+       shell: /bin/bash
+
+   - name: Create a Directory /opt/tomcat8
+     become: yes
+     file:
+       path: /opt/tomcat8
+       state: directory
+       mode: 0755
+       owner: tomcat
+
+
+   - name: Download Tomcat using get_url
+     become: yes
+     get_url:
+       url: https://apache.mirror.colo-serv.net/tomcat/tomcat-8/v8.5.66/bin/apache-tomcat-8.5.66.tar.gz
+       dest: /opt/tomcat8
+       mode: 0755
+       group: tomcat
+       owner: tomcat

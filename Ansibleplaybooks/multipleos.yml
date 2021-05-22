@@ -1,0 +1,11 @@
+---
+- name: This sets up an httpd webserver
+  hosts: webservers
+  become: yes
+  tasks:
+  - name: Install apache package on CentOS
+    yum: name=httpd state=latest
+    when: ansible_os_family == "RedHat"
+  - name: Install apache package on Ubuntu
+    yum: name=httpd state=latest
+    when: ansible_os_family == "Ubuntu"
