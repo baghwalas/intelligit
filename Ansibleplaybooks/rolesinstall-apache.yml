@@ -1,0 +1,6 @@
+---
+- name: Playbook With Roles 
+  hosts: webservers
+  become: yes
+  roles: 
+    - apache

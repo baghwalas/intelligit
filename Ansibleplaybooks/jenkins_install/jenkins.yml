@@ -1,0 +1,5 @@
+- hosts: Jenkins
+  become: true
+  roles:
+     - role: ansible-role-java-open-jdk11
+     - role: jenkins

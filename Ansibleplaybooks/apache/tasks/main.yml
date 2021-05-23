@@ -1,0 +1,20 @@
+---
+
+- name: Install apache packages
+    yum:
+      name: httpd
+      state: present
+
+- name: ensure httpd is running
+    service:
+      name: httpd
+      state: started
+    notify:
+    - Restart apache
+
+  - name: copy the index file
+    copy:
+      src: index.html
+      dest: /var/www/html
+    notify:
+    - Restart apache
