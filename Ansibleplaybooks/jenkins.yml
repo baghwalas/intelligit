@@ -1,0 +1,4 @@
+- hosts: os
+  become: true
+  roles:
+     - role: jenkins
